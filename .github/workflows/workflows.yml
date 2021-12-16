@@ -9,7 +9,20 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
+    - name: Run a one-line script
+      run: echo Hello, world!
+    - name: Run a multi-line script
+      run: |
+        echo Add other actions to build,
+        echo test, and deploy your project.
+    - name: Show what's in the directory
+      run: |
+        ls
+    - name: Show what all is in the parent directory
+      run: |
+        cd ..
+        ls
+        
     - name: Setup .NET Core SDK 6.0.x
       uses: actions/setup-dotnet@v1
       with:
@@ -28,7 +41,7 @@ jobs:
         nuget restore
         msbuild SyncMe.Android\SyncMe.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
 
-  SyncMe_iOS:
+  SyncMeiOS:
     runs-on: macos-latest
     steps:
     - uses: actions/checkout@v2
