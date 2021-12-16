@@ -19,16 +19,15 @@ jobs:
       run: nuget restore src/SyncMe/SyncMe.sln
 
     - name: Bump apps version
-      run: src/SyncMe/.\bump_version.ps1
+      shell: pwsh
+      run: |
+          cd src/SyncMe
+          .\bump_version.ps1
 
     - name: Build SyncMe.Android
       run: |
-          cd src/SyncMe
-          nuget restore
           msbuild SyncMe.Android/SyncMe.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
     
-    - name: SyncMe.iOS
+    - name: Build SyncMe.iOS
       run: |
-        cd src/SyncMe
-        nuget restore
         msbuild SyncMe.IOS/SyncMe.IOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug  
