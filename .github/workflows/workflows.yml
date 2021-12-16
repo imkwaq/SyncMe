@@ -18,11 +18,11 @@ jobs:
     - name: Install dependencies
       run: nuget restore src/SyncMe/SyncMe.sln
 
-    - name: Bump apps version
-      shell: pwsh
-      run: |
-          cd src/SyncMe
-          .\bump_version.ps1
+    # - name: Bump apps version
+    #   shell: pwsh
+    #   run: |
+    #       cd src/SyncMe
+    #       .\bump_version.ps1
 
     - name: Build SyncMe.Android
       run: |
