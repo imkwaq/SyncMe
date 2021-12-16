@@ -9,19 +9,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run a one-line script
-      run: echo Hello, world!
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
-    - name: Show what's in the directory
-      run: |
-        ls
-    - name: Show what all is in the parent directory
-      run: |
-        cd ..
-        ls
 
     - name: Setup .NET Core SDK 6.0.x
       uses: actions/setup-dotnet@v1
@@ -29,24 +16,19 @@ jobs:
         dotnet-version: '6.0.x'
 
     - name: Install dependencies
-      run: nuget restore src\SyncMe\SyncMe.sln
-    
-  SyncMe_Android:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v1
-    - name: SyncMe.Android
-      run: |
-        cd src/SyncMe
-        nuget restore
-        msbuild SyncMe.Android/SyncMe.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+      run: nuget restore src/SyncMe/SyncMe.sln
 
-  SyncMeiOS:
-    runs-on: macos-latest
-    steps:
-    - uses: actions/checkout@v2
+    - name: Bump apps version
+      run: src/SyncMe/.\bump_version.ps1
+
+    - name: Build SyncMe.Android
+      run: |
+          cd src/SyncMe
+          nuget restore
+          msbuild SyncMe.Android/SyncMe.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+    
     - name: SyncMe.iOS
       run: |
         cd src/SyncMe
         nuget restore
-        msbuild SyncMe.IOS/SyncMe.IOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug
+        msbuild SyncMe.IOS/SyncMe.IOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug  
