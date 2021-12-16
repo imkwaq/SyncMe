@@ -26,8 +26,8 @@ jobs:
 
     - name: Build SyncMe.Android
       run: |
-          msbuild SyncMe.Android/SyncMe.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
+          msbuild src/SyncMe/SyncMe.Android/SyncMe.Android.csproj /verbosity:normal /t:Rebuild /p:Configuration=Debug
     
     - name: Build SyncMe.iOS
       run: |
-        msbuild SyncMe.IOS/SyncMe.IOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug  
+        msbuild src/SyncMe/SyncMe.IOS/SyncMe.IOS.csproj /verbosity:normal /t:Rebuild /p:Platform=iPhoneSimulator /p:Configuration=Debug  
